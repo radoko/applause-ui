@@ -1,0 +1,19 @@
+<mat-card>
+  <form [formGroup]="searchForm" class="search-form">
+    <mat-form-field>
+      <mat-label>Filter by Country</mat-label>
+      <mat-select formControlName="country" placeholder="All" multiple="true">
+        <mat-option *ngFor="let option of matcherFacadeService.countries$ | async"
+                    [value]="option">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Filter By Device</mat-label>
+      <mat-select formControlName="device" placeholder="All" multiple="true">
+        <mat-option *ngFor="let option of matcherFacadeService.devices$ | async"
+                    [value]="option">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary">Search</button>
+  </form>
+</mat-card>
