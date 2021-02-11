@@ -1,4 +1,4 @@
-# ApplausApp UI
+# ApplauseApp UI
 
 ## How to run dev server
 Install node >=v.10.23 and npm >= 6.14.10
