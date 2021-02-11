@@ -5,6 +5,7 @@ import {AppComponent} from './app.component';
 import {MatcherModule} from './matcher/matcher.module';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import {EffectsModule} from '@ngrx/effects';
   imports: [
     BrowserModule,
     MatcherModule,
+    HttpClientModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
   ],

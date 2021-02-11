@@ -1,0 +1,35 @@
+<mat-card>
+  <form [formGroup]="searchForm" class="search-form">
+    <mat-form-field>
+      <mat-label>Filter by Country</mat-label>
+      <mat-select formControlName="countries" placeholder="All" multiple="true" required>
+        <div class="select-all">
+          <mat-checkbox [checked]="isAllSelected(countriesOptions, countriesControl.value)"
+                        [indeterminate]="isAnySelected(countriesControl.value) &&
+                        !isAllSelected(countriesOptions, countriesControl.value)"
+                        (change)="toogleAllCountries($event)">Select All
+          </mat-checkbox>
+        </div>
+        <mat-option *ngFor="let option of countriesOptions"
+                    [value]="option">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Filter By Device</mat-label>
+      <mat-select formControlName="devices" placeholder="All" multiple="true" required>
+        <div class="select-all">
+          <mat-checkbox [checked]="isAllSelected(devicesOptions, devicesControl.value)"
+                        [indeterminate]="isAnySelected(devicesControl.value) &&
+                        !isAllSelected(devicesOptions, devicesControl.value)"
+                        (change)="toogleAllDevices($event)">Select
+            All
+          </mat-checkbox>
+        </div>
+        <mat-option *ngFor="let option of devicesOptions"
+                    [value]="option.id">{{option.description}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button [disabled]="!searchForm.valid" mat-raised-button color="primary" (click)="this.searchMatch()">Search
+    </button>
+  </form>
+</mat-card>

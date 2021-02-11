@@ -1,26 +1,47 @@
-import {ActionReducerMap, createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
-import {countriesLoadedSuccess, devicesLoadedSuccess, searchSuccess} from './matcher.action';
+import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
+import {countriesLoadedSuccess, devicesLoadedSuccess, MatcherAction, matchLoadedSuccess} from './matcher.action';
+import {Device} from '../model/device.model';
+import {Match} from '../model/match.model';
 
 export interface AppState {
   matcher: MatcherState;
 }
 
 export interface MatcherState {
-  devices: string[];
+  devices: Device[];
   countries: string[];
+  testerMatches: Match[];
 }
 
 export const initialState: MatcherState = {
-  devices: ['Apple', 'Samsung'],
-  countries: ['Poland', 'USA'],
+  devices: [],
+  countries: [],
+  testerMatches: [],
 };
 
-const reducer = createReducer(
-  initialState,
-  on(countriesLoadedSuccess, (state) => state),
-  on(devicesLoadedSuccess, (state) => state),
-  on(searchSuccess, (state) => state)
-);
+export function reducer(state: MatcherState = initialState, action: MatcherAction): MatcherState {
+  switch (action.type) {
+    case devicesLoadedSuccess: {
+      return {
+        ...state,
+        devices: action.payload,
+      };
+    }
+    case countriesLoadedSuccess: {
+      return {
+        ...state,
+        countries: action.payload,
+      };
+    }
+    case matchLoadedSuccess: {
+      return {
+        ...state,
+        testerMatches: action.payload,
+      };
+    }
+  }
+  return state;
+}
 
 export const reducers: ActionReducerMap<AppState> = {
   matcher: reducer,
@@ -31,3 +52,4 @@ export const getMatcherState = createSelector(getState, (state: AppState) => sta
 
 export const getDevices = createSelector(getMatcherState, (state: MatcherState) => state.devices);
 export const getCountries = createSelector(getMatcherState, (state: MatcherState) => state.countries);
+export const getTesterMatches = createSelector(getMatcherState, (state: MatcherState) => state.testerMatches);
